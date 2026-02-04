@@ -38,3 +38,8 @@ test_*.py
 # OS files
 .DS_Store
 Thumbs.db
+# Generated outputs
+outputs/
+*.png
+*.jpg
+*.gif
