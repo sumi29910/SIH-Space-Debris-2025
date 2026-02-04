@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Debris Detection System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Space Debris Detection System</h1>
+        
+        <div class="upload-section">
+            <div class="camera-section">
+                <h2>Capture Image</h2>
+                <video id="video" width="640" height="480"></video>
+                <button id="start-camera">Start Camera</button>
+                <button id="capture-btn">Capture</button>
+            </div>
+            
+            <div class="upload-section">
+                <h2>Upload Image</h2>
+                <input type="file" id="image-upload" accept="image/*">
+                <div id="uploaded-preview"></div>
+            </div>
+        </div>
+        
+        <div class="processing-section">
+            <h2>Processing Result</h2>
+            <canvas id="result-canvas" width="640" height="480"></canvas>
+            <div id="result-info">
+                <p id="detection-status">Ready to scan...</p>
+                <p id="debris-id">ID: -</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="process-btn">Process Image</button>
+            <button id="reset-btn">Reset</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

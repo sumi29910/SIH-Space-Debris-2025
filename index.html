@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Main Frame</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --deep-blue: #0b1f3a;
+        --panel-blue: #142a4c;
+        --accent: #00c2ff;
+        --accent-2: #ffb347;
+        --accent-3: #a855f7;
+        --text: #f5f7ff;
+        --muted: #9cb4d8;
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #162946 0%, #050c16 80%);
+        color: var(--text);
+      }
+
+      .main-frame {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      .side-panel {
+        width: 20%;
+        min-width: 220px;
+        background: var(--panel-blue);
+        padding: 2rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.08);
+      }
+
+      .side-panel h2 {
+        margin: 0 0 0.5rem;
+        font-size: 1.3rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .panel-button {
+        border: none;
+        border-radius: 999px;
+        padding: 0.9rem 1.2rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        color: #081931;
+        transition: transform 150ms ease, box-shadow 150ms ease;
+      }
+
+      .panel-button:nth-child(2) {
+        background: linear-gradient(120deg, var(--accent), #2eeaff);
+        box-shadow: 0 15px 25px rgba(0, 194, 255, 0.25);
+      }
+
+      .panel-button:nth-child(3) {
+        background: linear-gradient(120deg, var(--accent-2), #ff8c42);
+        box-shadow: 0 15px 25px rgba(255, 140, 66, 0.25);
+      }
+
+      .panel-button:nth-child(4) {
+        background: linear-gradient(120deg, var(--accent-3), #ff5ed0);
+        box-shadow: 0 15px 25px rgba(168, 85, 247, 0.25);
+      }
+
+      .panel-button:hover {
+        transform: translateY(-2px);
+      }
+
+      .panel-button:active {
+        transform: translateY(0);
+      }
+
+      .output-display {
+        width: 80%;
+        background: rgba(11, 31, 58, 0.6);
+        backdrop-filter: blur(24px);
+        position: relative;
+        padding: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .home-button {
+        position: absolute;
+        top: 1.25rem;
+        right: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(0, 0, 0, 0.35);
+        color: var(--text);
+        border-radius: 999px;
+        padding: 0.5rem 1.2rem;
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        transition: background 150ms ease, color 150ms ease;
+      }
+
+      .home-button:hover {
+        background: rgba(0, 0, 0, 0.55);
+        color: #fff;
+      }
+
+      .output-content {
+        width: min(600px, 100%);
+        min-height: 320px;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.03);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+        gap: 1rem;
+      }
+
+      .output-title {
+        font-size: 2rem;
+        margin: 0;
+      }
+
+      .shape {
+        width: 120px;
+        height: 120px;
+        margin-top: 1rem;
+      }
+
+      .shape.square {
+        border-radius: 12px;
+        background: linear-gradient(130deg, #ffd600, #ff3366);
+        box-shadow: 0 20px 60px rgba(255, 51, 102, 0.35);
+      }
+
+      .shape.hexagon {
+        position: relative;
+        width: 100px;
+        height: 55px;
+        background: linear-gradient(130deg, #23d5ab, #23a6d5);
+        margin-top: 0.5rem;
+      }
+
+      .shape.hexagon::before,
+      .shape.hexagon::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 0;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+      }
+
+      .shape.hexagon::before {
+        bottom: 100%;
+        border-bottom: 27px solid #23d5ab;
+      }
+
+      .shape.hexagon::after {
+        top: 100%;
+        border-top: 27px solid #23a6d5;
+      }
+
+      .log-container {
+        width: 100%;
+        text-align: left;
+        font-family: "Fira Code", Consolas, monospace;
+        font-size: 0.95rem;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .color-splash {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.3;
+        background: radial-gradient(circle at top right, #0ff 0%, transparent 60%),
+          radial-gradient(circle at bottom left, #ff0 0%, transparent 65%);
+        transition: opacity 200ms ease;
+      }
+
+      .output-display.color-mode .color-splash {
+        opacity: 0.6;
+      }
+
+      @media (max-width: 900px) {
+        .main-frame {
+          flex-direction: column;
+        }
+        .side-panel,
+        .output-display {
+          width: 100%;
+        }
+        .side-panel {
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .panel-button {
+          flex: 1 1 160px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-frame">
+      <section class="side-panel">
+        <h2>Side Panel</h2>
+        <button class="panel-button" onclick="renderShape()">Render Shape</button>
+        <button class="panel-button" onclick="changeBackground()">Color Pulse</button>
+        <button class="panel-button" onclick="logMessage()">Log Insight</button>
+      </section>
+
+      <section class="output-display" id="outputDisplay">
+        <button class="home-button" onclick="resetOutput()">Home</button>
+        <div class="color-splash"></div>
+        <div class="output-content" id="outputContent">
+          <h1 class="output-title">Output Display</h1>
+          <p>Select any action from the Side Panel to see it here.</p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const outputDisplay = document.getElementById("outputDisplay");
+      const outputContent = document.getElementById("outputContent");
+
+      function renderShape() {
+        const shape = document.createElement("div");
+        shape.className = "shape hexagon";
+
+        outputDisplay.classList.remove("color-mode");
+        outputContent.innerHTML = `
+          <h1 class="output-title">Hexagon Rendered</h1>
+          <p>A clean geometric shape just arrived from the Side Panel.</p>
+        `;
+        outputContent.appendChild(shape);
+      }
+
+      function changeBackground() {
+        outputDisplay.classList.add("color-mode");
+        outputDisplay.style.background = "linear-gradient(135deg, #051937, #00275f)";
+
+        outputContent.innerHTML = `
+          <h1 class="output-title">Color Pulse</h1>
+          <p>The Output Display received a color instruction. Enjoy the glow!</p>
+        `;
+      }
+
+      function logMessage() {
+        outputDisplay.classList.remove("color-mode");
+        outputDisplay.style.background = "rgba(11, 31, 58, 0.6)";
+
+        const timestamp = new Date().toLocaleTimeString();
+        outputContent.innerHTML = `
+          <h1 class="output-title">Mission Log</h1>
+          <div class="log-container">
+            <p>[${timestamp}] Side Panel reports: "All systems nominal."</p>
+            <p>[${timestamp}] Output Display acknowledges transmission.</p>
+          </div>
+        `;
+      }
+
+      function resetOutput() {
+        outputDisplay.classList.remove("color-mode");
+        outputDisplay.style.background = "rgba(11, 31, 58, 0.6)";
+        outputContent.innerHTML = `
+          <h1 class="output-title">Output Display</h1>
+          <p>Select any action from the Side Panel to see it here.</p>
+        `;
+      }
+    </script>
+  </body>
+</html>
+

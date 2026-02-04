@@ -1,0 +1,44 @@
+// Space Debris Removal Flowchart
+const flowchartDot = `
+digraph {
+	Start [label=Start]
+	Identify [label="Identify Space Debris"]
+	Track [label="Track Debris Orbit Parameters"]
+	"Threat?" [label="Is Debris a Collision Threat?"]
+	Monitor [label="Continue Monitoring"]
+	Estimate [label="Estimate Laser Requirements
+(Power, Duration, Angle)"]
+	Orient [label="Orient Spacecraft & Laser Platform"]
+	Check [label="Check System Health & Safety Parameters"]
+	"Ready?" [label="Is System Ready?"]
+	Diagnostics [label="Run Diagnostics / Adjust Orientation"]
+	Fire [label="Fire Laser Pulse"]
+	Ablate [label="Ablate Debris Surface → Generate Thrust"]
+	Change [label="Change Debris Orbit (Lower Perigee)"]
+	"Reenter?" [label="Will Debris Reenter Atmosphere?"]
+	Repeat [label="Recalculate & Repeat Laser Engagement"]
+	Burn [label="Debris Reenters & Burns Up"]
+	Log [label="Log Operation & Update Debris Catalogue"]
+	End [label=End]
+	Start -> Identify
+	Identify -> Track
+	Track -> "Threat?"
+	"Threat?" -> Monitor [label=No]
+	"Threat?" -> Estimate [label=Yes]
+	Estimate -> Orient
+	Orient -> Check
+	Check -> "Ready?"
+	"Ready?" -> Diagnostics [label=No]
+	"Ready?" -> Fire [label=Yes]
+	Diagnostics -> "Ready?"
+	Fire -> Ablate
+	Ablate -> Change
+	Change -> "Reenter?"
+	"Reenter?" -> Repeat [label=No]
+	"Reenter?" -> Burn [label=Yes]
+	Repeat -> Estimate
+	Burn -> Log
+	Log -> End
+}
+`;
+module.exports = flowchartDot;

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Satellite Debris Mitigation | Game Mode</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="game-header">
+    <div class="logo">
+      <h1>🚀 Debris Mitigation</h1>
+      <p class="subtitle">Interactive Game Mode</p>
+    </div>
+    <nav class="game-nav">
+      <button class="nav-btn active" data-section="scan">Scan</button>
+      <button class="nav-btn" data-section="track">Track</button>
+      <button class="nav-btn" data-section="mitigate">Mitigate</button>
+      <button class="nav-btn" data-section="dashboard">Dashboard</button>
+    </nav>
+  </header>
+
+  <!-- Main Game Area -->
+  <main class="game-main">
+    <!-- Scan Section -->
+    <section id="scan-section" class="game-section active">
+      <div class="section-header">
+        <h2>Orbital Debris Scan</h2>
+        <p>Detect and identify space debris in real-time</p>
+      </div>
+      <div class="game-canvas-container">
+        <canvas id="scan-canvas"></canvas>
+        <div class="scan-overlay">
+          <div class="scan-radar">
+            <div class="radar-sweep"></div>
+          </div>
+          <div class="satellite-indicator">
+            <div class="satellite-label">DMSAT</div>
+            <div class="satellite-pulse"></div>
+          </div>
+        </div>
+      </div>
+      <div class="control-panel">
+        <div class="control-group">
+          <label>Scan Range (km)</label>
+          <input type="range" id="scan-range" min="200" max="2000" value="600" />
+          <span id="scan-range-value">600 km</span>
+        </div>
+        <div class="control-group">
+          <label>Scan Speed</label>
+          <select id="scan-speed">
+            <option value="slow">Slow (Accurate)</option>
+            <option value="medium" selected>Medium</option>
+            <option value="fast">Fast (Quick)</option>
+          </select>
+        </div>
+        <button id="btn-start-scan" class="game-btn primary">Start Scan</button>
+        <button id="btn-stop-scan" class="game-btn">Stop Scan</button>
+      </div>
+      <div class="results-panel">
+        <h3>Detection Results</h3>
+        <div id="scan-results" class="results-grid"></div>
+      </div>
+    </section>
+
+    <!-- Track Section -->
+    <section id="track-section" class="game-section">
+      <div class="section-header">
+        <h2>Debris Tracking</h2>
+        <p>Monitor orbital paths and predict collisions</p>
+      </div>
+      <div class="game-canvas-container">
+        <canvas id="track-canvas"></canvas>
+        <div class="satellite-track-label">DMSAT Orbital Position</div>
+      </div>
+      <div class="control-panel">
+        <div class="control-group">
+          <label>Target Debris ID</label>
+          <input type="text" id="track-id" placeholder="Enter debris ID" />
+        </div>
+        <button id="btn-track" class="game-btn primary">Track Object</button>
+        <button id="btn-clear-track" class="game-btn">Clear Tracking</button>
+      </div>
+      <div class="telemetry-panel">
+        <h3>Telemetry Data</h3>
+        <div id="telemetry-data" class="telemetry-grid"></div>
+      </div>
+    </section>
+
+    <!-- Mitigate Section -->
+    <section id="mitigate-section" class="game-section">
+      <div class="section-header">
+        <h2>Debris Mitigation</h2>
+        <p>Engage and neutralize high-risk debris</p>
+      </div>
+      <div class="game-canvas-container">
+        <canvas id="mitigate-canvas"></canvas>
+        <div class="satellite-engage-label">DMSAT Engagement Mode</div>
+      </div>
+      <div class="control-panel">
+        <div class="control-group">
+          <label>Weapon Type</label>
+          <select id="weapon-type">
+            <option value="laser">Laser Ablation</option>
+            <option value="kinetic">Kinetic Impact</option>
+            <option value="net">Capture Net</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>Power Level</label>
+          <input type="range" id="weapon-power" min="1" max="100" value="50" />
+          <span id="weapon-power-value">50%</span>
+        </div>
+        <button id="btn-engage" class="game-btn danger">Engage Target</button>
+        <div class="target-list">
+          <h4>Available Targets</h4>
+          <div id="target-list" class="target-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard-section" class="game-section">
+      <div class="section-header">
+        <h2>Mission Dashboard</h2>
+        <p>Overview of all operations and statistics</p>
+      </div>
+      <div class="dashboard-grid">
+        <div class="dashboard-card">
+          <h3>Mission Statistics</h3>
+          <div class="stat-item">
+            <span class="stat-label">Total Scans</span>
+            <span class="stat-value" id="stat-scans">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Debris Tracked</span>
+            <span class="stat-value" id="stat-tracked">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Debris Neutralized</span>
+            <span class="stat-value" id="stat-neutralized">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Success Rate</span>
+            <span class="stat-value" id="stat-success">0%</span>
+          </div>
+        </div>
+        <div class="dashboard-card">
+          <h3>DMSAT Satellite Status</h3>
+          <div class="satellite-status">
+            <div class="status-indicator active">
+              <span class="status-dot"></span>
+              <span>Operational</span>
+            </div>
+            <div class="satellite-telemetry">
+              <div class="telemetry-item">
+                <span class="telemetry-label">Orbit Altitude</span>
+                <span class="telemetry-value" id="dmsat-altitude">550 km</span>
+              </div>
+              <div class="telemetry-item">
+                <span class="telemetry-label">Inclination</span>
+                <span class="telemetry-value" id="dmsat-inclination">97.6°</span>
+              </div>
+              <div class="telemetry-item">
+                <span class="telemetry-label">Velocity</span>
+                <span class="telemetry-value" id="dmsat-velocity">7.58 km/s</span>
+              </div>
+              <div class="telemetry-item">
+                <span class="telemetry-label">Mission Time</span>
+                <span class="telemetry-value" id="dmsat-time">00:00:00</span>
+              </div>
+              <div class="telemetry-item">
+                <span class="telemetry-label">Power Level</span>
+                <span class="telemetry-value" id="dmsat-power">85%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard-card">
+          <h3>Mission Log</h3>
+          <div id="mission-log" class="mission-log"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Particle Canvas (Overlay) -->
+  <canvas id="particle-canvas"></canvas>
+
+  <script src="game.js"></script>
+</body>
+</html>

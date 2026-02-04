@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orbital Nexus | Mission Control Platform</title>
+    <link rel="stylesheet" href="mission-control.css" />
+  </head>
+  <body>
+    <!-- Top Navigation -->
+    <header class="mc-header">
+      <div class="mc-logo">Orbital<span>Nexus</span></div>
+      <nav class="mc-nav">
+        <button class="nav-toggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#debris-scan">Debris Scan</a></li>
+          <li><a href="#track-debris">Track Debris</a></li>
+          <li><a href="#orbit-visualizer">Orbit Visualizer</a></li>
+          <li><a href="#collision-prediction">Collision Prediction</a></li>
+          <li><a href="#mission-planner">Mission Planner</a></li>
+          <li><a href="#rendezvous-mode">Rendezvous Mode</a></li>
+          <li><a href="#laser-ablation">Laser Ablation</a></li>
+          <li><a href="#deorbit-simulation">Deorbit Simulation</a></li>
+          <li><a href="#mission-log">Mission Log</a></li>
+          <li><a href="#system-diagnostics">System Diagnostics</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero / Home -->
+    <main id="home" class="mc-main">
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Space Mission Control, Reimagined.</h1>
+          <p>
+            Orbital Nexus is a mission control simulation platform for
+            aerospace engineers, mission planners, and space enthusiasts. Scan,
+            track, and manage orbital debris with confidence.
+          </p>
+          <div class="hero-actions">
+            <a href="#orbit-visualizer" class="btn primary">Launch Console</a>
+            <a href="#mission-planner" class="btn ghost">Plan a Mission</a>
+          </div>
+          <div class="hero-highlights">
+            <div>
+              <h3>Real-time</h3>
+              <p>Live diagnostics, telemetry streams, and mission logs.</p>
+            </div>
+            <div>
+              <h3>Physics-Based</h3>
+              <p>Orbit and launch models driven by real-world equations.</p>
+            </div>
+            <div>
+              <h3>Secure</h3>
+              <p>Backend ready for encrypted mission data and audit trails.</p>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="orbit-scene">
+            <div class="planet"></div>
+            <div class="orbit orbit-1">
+              <div class="satellite sat-1"></div>
+            </div>
+            <div class="orbit orbit-2">
+              <div class="satellite sat-2"></div>
+            </div>
+            <div class="orbit orbit-3">
+              <div class="satellite sat-3"></div>
+            </div>
+          </div>
+          <div class="orbit-caption">Interactive Orbit Visualizer Preview</div>
+        </div>
+      </section>
+
+      <!-- Debris Scan -->
+      <section id="debris-scan" class="mc-section">
+        <header class="section-header">
+          <h2>Debris Scan</h2>
+          <p>Sweep orbital shells for potential debris clusters and anomalies.</p>
+        </header>
+        <div class="section-grid">
+          <div class="section-text">
+            <p>
+              Configure scan parameters such as altitude band, inclination
+              range, and radar beam width. The system then simulates returns
+              from trackable debris objects and highlights high-risk regions.
+            </p>
+            <ul class="pill-list">
+              <li>Multi-band radar simulation</li>
+              <li>Configurable scan cadence</li>
+              <li>Clutter & noise modeling</li>
+            </ul>
+          </div>
+          <div class="section-panel">
+            <div class="panel-header">
+              <span>Scan Console</span>
+              <button class="panel-btn" id="btnStartScan">Start Scan</button>
+            </div>
+            <div class="panel-body" id="scanOutput">
+              <p>Awaiting scan command.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Track Debris -->
+      <section id="track-debris" class="mc-section alt">
+        <header class="section-header">
+          <h2>Track Debris</h2>
+          <p>Maintain custody of high-priority debris objects over time.</p>
+        </header>
+        <div class="section-grid">
+          <div class="section-panel wide">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Altitude (km)</th>
+                  <th>Inclination (°)</th>
+                  <th>Rel. Velocity (km/s)</th>
+                  <th>Risk</th>
+                </tr>
+              </thead>
+              <tbody id="debrisTableBody">
+                <!-- JS injects rows -->
+              </tbody>
+            </table>
+          </div>
+          <div class="section-text">
+            <p>
+              Real-time tracking fuses radar, optical, and TLE-based estimates
+              into a unified catalog. Risk scores help prioritize follow-up
+              observations and mitigation actions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Orbit Visualizer -->
+      <section id="orbit-visualizer" class="mc-section">
+        <header class="section-header">
+          <h2>Orbit Visualizer</h2>
+          <p>Explore orbital trajectories in an animated, interactive view.</p>
+        </header>
+        <div class="section-grid">
+          <div class="section-text">
+            <p>
+              Select an orbital altitude and inclination to preview a simplified
+              3D-style orbit. Use this as an educational tool or as a gateway
+              into more detailed simulations.
+            </p>
+            <label class="field">
+              <span>Altitude (km)</span>
+              <input
+                type="range"
+                id="altitudeRange"
+                min="200"
+                max="2000"
+                value="600"
+              />
+              <div class="field-meta">
+                <span id="altitudeValue">600 km</span>
+              </div>
+            </label>
+            <label class="field">
+              <span>Inclination (°)</span>
+              <input
+                type="range"
+                id="inclinationRange"
+                min="0"
+                max="98"
+                value="45"
+              />
+              <div class="field-meta">
+                <span id="inclinationValue">45°</span>
+              </div>
+            </label>
+          </div>
+          <div class="section-panel orbit-panel">
+            <div class="orbit-scene large" id="liveOrbitScene">
+              <div class="planet"></div>
+              <div class="orbit orbit-visual">
+                <div class="satellite sat-live"></div>
+              </div>
+            <div class="orbit-caption small" id="orbitSummary">
+              Circular LEO preview — altitude 600 km, inclination 45°.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Collision Prediction -->
+      <section id="collision-prediction" class="mc-section alt">
+        <header class="section-header">
+          <h2>Collision Prediction</h2>
+          <p>Estimate close approaches and potential conjunction events.</p>
+        </header>
+        <div class="section-grid">
+          <div class="section-text">
+            <p>
+              The collision engine propagates orbits forward in time and
+              computes miss distances between active spacecraft and tracked
+              debris. Results are summarized as probabilistic risk bands.
+            </p>
+          </div>
+          <div class="section-panel">
+            <div class="panel-header">
+              <span>Next 24h Conjunctions</span>
+            </div>
+            <div class="panel-body">
+              <ul class="event-list" id="collisionList">
+                <!-- Populated via JS -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mission Planner + Rocket Launch Simulation -->
+      <section id="mission-planner" class="mc-section">
+        <header class="section-header">
+          <h2>Mission Planner & Launch Simulation</h2>
+          <p>
+            Design missions, select launch profiles, and visualize ascent to
+            orbit with staged rocket dynamics.
+          </p>
+        </header>
+        <div class="section-grid">
+          <div class="section-text">
+            <p>
+              Configure a multi-stage launch vehicle, simulate thrust curves,
+              fuel consumption, stage separation, and orbital insertion. This
+              module demonstrates the physical concepts behind launch
+              trajectories using simple, intuitive visuals.
+            </p>
+            <ul class="pill-list">
+              <li>Thrust vs. time curves</li>
+              <li>Fuel depletion & staging</li>
+              <li>Ascent & orbital insertion</li>
+            </ul>
+          </div>
+          <div class="section-panel launch-panel">
+            <div class="panel-header">
+              <span>Launch Simulation</span>
+              <button class="panel-btn" id="btnLaunch">Simulate Launch</button>
+            </div>
+            <div class="launch-scene" id="launchScene">
+              <div class="sky-gradient"></div>
+              <div class="rocket">
+                <div class="stage stage-1"></div>
+                <div class="stage stage-2"></div>
+                <div class="stage stage-3"></div>
+                <div class="flame"></div>
+              </div>
+              <div class="stage-tags">
+                <span>Thrust</span>
+                <span>Fuel</span>
+                <span>Separation</span>
+              </div>
+            </div>
+            <div class="launch-telemetry" id="launchTelemetry">
+              <p>Ready for launch. Configure profile and press "Simulate".</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rendezvous Mode -->
+      <section id="rendezvous-mode" class="mc-section alt">
+        <header class="section-header">
+          <h2>Rendezvous Mode</h2>
+          <p>Plan proximity operations and docking timelines.</p>
+        </header>
+        <div class="section-grid">
+          <div class="section-text">
+            <p>
+              Configure phasing orbits, approach corridors, and keep-out zones.
+              Visual cues help explain relative motion and safety margins for
+              students and mission planners alike.
+            </p>
+          </div>
+          <div class="section-panel">
+            <div class="panel-header">
+              <span>Rendezvous Timeline (Conceptual)</span>
+            </div>
+            <ol class="timeline">
+              <li>T-3 orbits: Phasing burns to align with target RAAN.</li>
+              <li>T-1 orbit: Height adjustment to reduce relative motion.</li>
+              <li>T-10 min: Final approach, corridor monitoring.</li>
+              <li>T-0: Soft capture and docking.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Laser Ablation -->
+      <section id="laser-ablation" class="mc-section">
+        <header class="section-header">
+          <h2>Laser Ablation</h2>
+          <p>Conceptual interface for directed energy debris mitigation.</p>
+        </header>
+        <div class="section-grid">
+          <div class="section-text">
+            <p>
+              Evaluate notional laser ablation campaigns to reduce debris
+              cross-section or alter orbits. Emphasis is placed on explaining
+              the physics and operational constraints, not on weaponization.
+            </p>
+          </div>
+          <div class="section-panel">
+            <label class="field">
+              <span>Pulse Energy (kJ)</span>
+              <input type="range" min="10" max="200" value="80" id="laserEnergy" />
+              <div class="field-meta">
+                <span id="laserEnergyValue">80 kJ</span>
+              </div>
+            </label>
+            <label class="field">
+              <span>Engagement Duration (s)</span>
+              <input type="range" min="5" max="120" value="30" id="laserDuration" />
+              <div class="field-meta">
+                <span id="laserDurationValue">30 s</span>
+              </div>
+            </label>
+            <div class="panel-body small" id="laserSummary">
+              Estimated delta-v is minimal but sufficient to lower perigee over
+              repeated passes. This is a conceptual educational model.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Deorbit Simulation -->
+      <section id="deorbit-simulation" class="mc-section alt">
+        <header class="section-header">
+          <h2>Deorbit Simulation</h2>
+          <p>Visualize controlled re-entry and deorbit maneuvers.</p>
+        </header>
+        <div class="section-grid">
+          <div class="section-text">
+            <p>
+              Model drag augmentation, perigee-lowering burns, and decay
+              timelines. The simulator provides simple graphics to show how
+              objects re-enter the atmosphere safely over time.
+            </p>
+          </div>
+          <div class="section-panel">
+            <div class="panel-header">
+              <span>Deorbit Timeline (Concept)</span>
+            </div>
+            <ul class="event-list">
+              <li>D-30 days: Drag sail deployment, perigee 350 km.</li>
+              <li>D-10 days: Rapid decay phase, increased plasma heating.</li>
+              <li>D-1 day: Controlled corridor monitored by ground stations.</li>
+              <li>D-0: Burn-up completion above populated areas.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mission Log -->
+      <section id="mission-log" class="mc-section">
+        <header class="section-header">
+          <h2>Mission Log</h2>
+          <p>Chronological record of simulated events and operator actions.</p>
+        </header>
+        <div class="section-grid">
+          <div class="section-panel wide">
+            <div class="panel-header">
+              <span>Live Log Stream</span>
+              <button class="panel-btn" id="btnAddManualLog">Add Manual Entry</button>
+            </div>
+            <div class="mission-log" id="missionLogStream">
+              <!-- JS appends log lines -->
+            </div>
+          </div>
+          <div class="section-text">
+            <p>
+              In a production system, mission logs would be stored in a secure
+              backend with access control, encryption at rest, and full audit
+              trails. Here, the front-end demonstrates how such a stream might
+              appear in real time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- System Diagnostics -->
+      <section id="system-diagnostics" class="mc-section alt">
+        <header class="section-header">
+          <h2>System Diagnostics</h2>
+          <p>Real-time health monitoring and performance metrics.</p>
+        </header>
+        <div class="section-grid">
+          <div class="diagnostics-grid">
+            <div class="diag-card">
+              <h3>Compute Load</h3>
+              <p class="diag-value" id="diagCpu">42%</p>
+              <p class="diag-meta">Simulation cluster utilization</p>
+            </div>
+            <div class="diag-card">
+              <h3>Telemetry Latency</h3>
+              <p class="diag-value" id="diagLatency">180 ms</p>
+              <p class="diag-meta">Avg. link delay</p>
+            </div>
+            <div class="diag-card">
+              <h3>DB Throughput</h3>
+              <p class="diag-value" id="diagDb">12.3 k ops/s</p>
+              <p class="diag-meta">Mission data I/O</p>
+            </div>
+            <div class="diag-card">
+              <h3>Alert Level</h3>
+              <p class="diag-value" id="diagAlert">Nominal</p>
+              <p class="diag-meta">Automated risk summary</p>
+            </div>
+          </div>
+          <div class="section-text">
+            <p>
+              Diagnostics panels are updated periodically to mimic a live
+              operations environment. In a full system, these would be fed by
+              metrics exporters, observability pipelines, and anomaly detectors.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mc-footer">
+      <div class="footer-left">
+        <p>&copy; <span id="year"></span> Orbital Nexus Mission Control (Simulation)</p>
+        <p class="footer-note">For educational and demonstrative purposes only.</p>
+      </div>
+      <div class="footer-right">
+        <div class="footer-links">
+          <a href="mailto:contact@orbitalnexus.example">Contact</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">GitHub</a>
+          <a href="#">X (Twitter)</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="mission-control.js"></script>
+  </body>
+</html>
+
+

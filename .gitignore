@@ -1,0 +1,40 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Logs & generated data
+*.log
+*_log.csv
+*log.csv
+
+# Media outputs
+*.mp4
+*.gif
+
+# ML / model files
+*.pt
+*.h5
+*.onnx
+
+# Temp / test files
+tempCodeRunnerFile.py
+Untitled.ipynb
+test_*.py
+
+# OS files
+.DS_Store
+Thumbs.db
