@@ -7,7 +7,7 @@ This prototype focuses on a **modern, responsive front-end** with placeholder si
 
 ### Front-end Structure
 
-- **`index.html`**  
+- **`index.html`**
   - Single-page layout with top navigation for all major modules:
     - Debris Scan, Track Debris, Orbit Visualizer, Collision Prediction
     - Mission Planner, Rendezvous Mode, Laser Ablation
@@ -16,12 +16,12 @@ This prototype focuses on a **modern, responsive front-end** with placeholder si
   - **Homepage / Hero**: headline, call-to-action buttons, live-style metrics, and a mini-orbit visualization.
   - **Footer**: contact info, social placeholders, and copyright.
 
-- **`styles.css`**  
+- **`styles.css`**
   - Dark, futuristic theme with **neon blue/green/orange accents** and **Orbitron + Inter** typography.
   - Responsive grid layout for all sections (desktop, tablet, mobile).
   - Reusable components: `panel-card`, `pill` groups, `telemetry-grid`, `event-list`, mission log and diagnostics cards.
 
-- **`app.js`**  
+- **`app.js`**
   - Smooth scrolling navigation, mobile menu, active-section highlighting.
   - **Hero orbit widget**: animated canvas showing Earth and debris orbits.
   - **Orbit visualizer**: parameterized orbit drawing (altitude, inclination, type) with motion.
@@ -165,4 +165,6 @@ node -e "require('http').createServer((_,res)=>{require('fs').createReadStream('
 - All numbers shown in the interface (Δv, perigee shifts, lifetimes, etc.) are **illustrative only** and must be replaced with validated models for real missions.
 - The UI is intentionally clean and minimal to keep the cognitive load low for operators while still **inspiring innovation** for space debris remediation concepts.
 
+## 🎥 Demo Preview
 
+![Space Debris Simulation](screenshots/cursor.gif)

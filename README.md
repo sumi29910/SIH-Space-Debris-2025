@@ -53,19 +53,19 @@ Embedded animations or simulation status
 📂 Project Structure
 SIH_Space_Debris/
 │
-├── SIH_First.py               # YOLO-based detection code
-├── SIH_Second.py              # YOLO tracking + data logging
-├── SIH_Third.py               # Streamlit dashboard
-├── SIH_Fourth.py              # Real-time laser deflection simulation
-├── SIH_Fifth.py               # Orbital debris visualization
-├── SIH_Sixth.py               # Satellite launch simulation
+├── SIH_First.py # YOLO-based detection code
+├── SIH_Second.py # YOLO tracking + data logging
+├── SIH_Third.py # Streamlit dashboard
+├── SIH_Fourth.py # Real-time laser deflection simulation
+├── SIH_Fifth.py # Orbital debris visualization
+├── SIH_Sixth.py # Satellite launch simulation
 │
-├── requirements.txt           # All required Python libraries
-├── README.md                  # Project documentation
+├── requirements.txt # All required Python libraries
+├── README.md # Project documentation
 │
 └── assets/
-    ├── sample_video.mp4       # (Optional test videos)
-    └── output_logs.csv
+├── sample_video.mp4 # (Optional test videos)
+└── output_logs.csv
 
 ⚙️ Installation
 1️⃣ Create Virtual Environment
@@ -76,7 +76,6 @@ python -m venv venv
 Windows
 
 venv\Scripts\activate
-
 
 Linux / Mac
 
@@ -127,15 +126,18 @@ Supporting autonomous satellite protection
 
 Developing India’s capability in space situational awareness
 
+## 🎥 Demo Preview
+
+![Space Debris Simulation](screenshots/cursor.gif)
+
 👥 Team
 
 Smart India Hackathon – Software Edition
 Team Name: Code Orbit
 Members:
-
+Sumitra Kumari
 Shriyanshi Sinha
 Kavita Kumari
-Sumita Kumari
 S. Nandani
 Bharti Sahu
 Rea Pandey

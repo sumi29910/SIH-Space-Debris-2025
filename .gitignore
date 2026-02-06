@@ -23,7 +23,7 @@ env/
 
 # Media outputs
 *.mp4
-*.gif
+
 
 # ML / model files
 *.pt
@@ -38,8 +38,9 @@ test_*.py
 # OS files
 .DS_Store
 Thumbs.db
+
 # Generated outputs
 outputs/
 *.png
 *.jpg
-*.gif
+
